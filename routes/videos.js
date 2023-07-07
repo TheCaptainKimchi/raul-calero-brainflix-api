@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const videos = require("../data/videos.json");
 const fs = require("fs");
+const crypto = require("crypto");
 
 router.route("/").get((req, res) => {
   res.send("Welcome to the API!");
@@ -10,25 +11,46 @@ router.route("/").get((req, res) => {
 router
   .route("/videos")
   .get((req, res) => {
-    res.send(videos[1]);
+    res.send(videos);
   })
   .post((req, res) => {
-    const id = "";
-    const title = "";
-    const description = "";
-    const channel = "";
-    const image = "";
-    const views = "";
-    const likes = "";
-    const duration = "";
-    const video = "";
-    const timestamp = "";
-    const comments = [];
+    const titleQuery = req.query.title;
+    const descriptionQuery = req.query.description;
+    const currentDate = new Date();
+
+    if (!titleQuery || !descriptionQuery) {
+      res
+        .status(400)
+        .send("Title and/or Description not entered parameter not entered");
+    } else {
+      const videoSubmit = {
+        id: crypto.randomBytes(16).toString("hex"),
+        title: titleQuery,
+        channel: "User",
+        image: "../public/images/Upload-video-preview.jpg",
+        description: descriptionQuery,
+        views: "0",
+        likes: "0",
+        duration: "3:02",
+        video: "https://www.youtube.com/watch?v=moR4uw-NWLY",
+        timestamp: currentDate.getTime(),
+        comments: [],
+      };
+
+      const addVideo = (video) => {
+        videos.push(video);
+        const jsonVideos = JSON.stringify(videos, null, 4);
+        fs.writeFileSync("./data/videos.json", jsonVideos);
+        return video;
+      };
+      addVideo(videoSubmit);
+      res.status(202).send("Submission received");
+    }
   });
 router.route("/videos/:videoId").get((req, res) => {
   const { videoId } = req.params;
 
-  const video = videos[0].find((video) => {
+  const video = videos.find((video) => {
     return video.id === videoId;
   });
   if (!video) {
