@@ -1,0 +1,24 @@
+{
+  "name": "raul-calero-brainflix-api",
+  "version": "1.0.0",
+  "description": "Brainflix backend api to support brainflix client",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/TheCaptainKimchi/raul-calero-brainflix-api.git"
+  },
+  "author": "Raul Calero",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TheCaptainKimchi/raul-calero-brainflix-api/issues"
+  },
+  "homepage": "https://github.com/TheCaptainKimchi/raul-calero-brainflix-api#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "nodemon": "^2.0.22",
+    "sass": "^1.63.6"
+  }
+}
