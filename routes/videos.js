@@ -4,14 +4,27 @@ const videos = require("../data/videos.json");
 const fs = require("fs");
 const crypto = require("crypto");
 
+const videosList = [];
+
 router.route("/").get((req, res) => {
-  res.send("Welcome to the API!");
+  res.send(
+    "Welcome to the API! You may obtain list of videos from GET /videos, upload a video from POST /videos by passing query params `title` and `description`, and you may get the specific video details from GET videos/:videoId"
+  );
 });
 
 router
   .route("/videos")
   .get((req, res) => {
-    res.send(videos);
+    videos.map((video) => {
+      const videoObj = {
+        id: video.id,
+        title: video.title,
+        channel: video.channel,
+        image: video.image,
+      };
+      videosList.push(videoObj);
+    });
+    res.send(videosList);
   })
   .post((req, res) => {
     const titleQuery = req.query.title;
