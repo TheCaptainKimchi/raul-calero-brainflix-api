@@ -4,8 +4,6 @@ const videos = require("../data/videos.json");
 const fs = require("fs");
 const crypto = require("crypto");
 
-const videosList = [];
-
 router.route("/").get((req, res) => {
   res.send(
     "Welcome to the API! You may obtain list of videos from GET /videos, upload a video from POST /videos by passing query params `title` and `description`, and you may get the specific video details from GET videos/:videoId"
@@ -15,6 +13,7 @@ router.route("/").get((req, res) => {
 router
   .route("/videos")
   .get((req, res) => {
+    const videosList = [];
     videos.map((video) => {
       const videoObj = {
         id: video.id,
@@ -75,12 +74,17 @@ router.route("/videos/:videoId").get((req, res) => {
   res.json(video);
 });
 
+router.route("/image-upload").get((req, res) => {
+  res.sendFile(
+    "C:/Users/RaulC/Desktop/Class/projects/raul-calero-brainflix-api/public/images/Upload-video-preview.jpg"
+  );
+});
+
 router.route("*").get((req, res) => {
   res.send(
     "Path not defined. Try a different path or refer to '/' path to start."
   );
 });
-
 module.exports = router;
 
 // 1. Adjusted videos.json file to only include one list.
