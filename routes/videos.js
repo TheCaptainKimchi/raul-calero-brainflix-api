@@ -39,7 +39,7 @@ router
         id: crypto.randomBytes(16).toString("hex"),
         title: titleQuery,
         channel: "User",
-        image: "../public/images/Upload-video-preview.jpg",
+        image: "Upload-video-preview.jpg",
         description: descriptionQuery,
         views: "0",
         likes: "0",
